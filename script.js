@@ -82,8 +82,17 @@ addEventListener("mouseup", () => {
 
 const button = document.querySelector(".menu-button")
 const mainMenu = document.querySelector(".main-menu")
-
+var flagMenu = 0
 
 button.onclick = () => {
-    mainMenu.style.display = "none"
+    switch (flagMenu) {
+        case 0:
+            mainMenu.style.display = "none"
+            flagMenu = 1
+            break
+        case 1:
+            mainMenu.style.display = ""
+            flagMenu = 0
+            break
+    }
 }
