@@ -13,10 +13,12 @@ html, body {
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 10px;
+    margin:4px;
     /* opacity: .6; */
 }
 
 .menu {
+    text-align:left;
     position: absolute;
     left: 10px;
     top:10px;
@@ -24,11 +26,26 @@ html, body {
 }
 
 .main-menu {
-    width: 200px;
-    height:300px;
-    background-color: black;
-    /* opacity:.3; */
+    padding: 10px;
+    border-radius: 10px;
+    margin:4px;
+    background-color: rgba(95, 176, 180, 0.6);
 }
+
+.main-menu P{
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 3px solid rgb(95, 176, 180);
+}
+
+.change-pixel BUTTON{
+    width:120px;
+}
+
+.change-pixel #metal{
+    background-color: rgb(144, 144, 144);
+}
+
 
 /* #canvas-screen {
 } */
