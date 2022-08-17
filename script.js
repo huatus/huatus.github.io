@@ -20,12 +20,11 @@ function drawGrid() {
     ctx.beginPath()
 }
 
-function newBlock(e) {
+function newBlock(e, pixel) {
     var x = e.offsetX - (e.offsetX % box), y = e.offsetY - (e.offsetY % box)
-    var blockType = "color"
     for (let i = 0; i < paintedBlocks.length; i++) {
         var pb = paintedBlocks[i]
-        if (pb.canvasX === x && pb.canvasY === y && pb.type === blockType)
+        if (pb.canvasX === x && pb.canvasY === y)
             paintedBlocks.splice(i, 1)
     }
     paintedBlocks.unshift({
@@ -33,7 +32,7 @@ function newBlock(e) {
         y: y / box,
         canvasX: x,
         canvasY: y,
-        type: blockType
+        pixel: pixel
     })
 }
 
@@ -48,12 +47,20 @@ canvas.height = document.documentElement.clientHeight - document.documentElement
 var paintedBlocks = []
 var mousePressed = false 
 
+const pixels = [
+                {name: "metal",color:"#909090"},
+                {name: "blue",color:"#5457f7"},
+                {name: "green",color:"#32a852"}
+]
+
+var pixel = pixels[2]
+
 function drawGame() {
     ctx.fillStyle = "rgb(212, 212, 212)"
     ctx.fillRect(0,0, canvas.width, canvas.height)
 
     paintedBlocks.forEach((pb) => {
-        ctx.fillStyle = "#32a852"
+        ctx.fillStyle = pb.pixel.color
         ctx.fillRect(pb.canvasX, pb.canvasY, box,box)
     })
 
@@ -64,13 +71,13 @@ let game = setInterval(drawGame, 1)
 canvas.addEventListener("mousedown", (e) => {
     if (e.button == 0) {
         mousePressed = true
-        newBlock(e)
+        newBlock(e, pixel)
     }
 })
 
 canvas.addEventListener("mousemove", (e) => {
     if (mousePressed) {
-        newBlock(e)
+        newBlock(e, pixel)
     }
 })
 
@@ -82,6 +89,9 @@ addEventListener("mouseup", () => {
 
 const button = document.querySelector(".menu-button")
 const mainMenu = document.querySelector(".main-menu")
+
+const buttons = document.querySelectorAll(".change-pixel BUTTON")
+
 var flagMenu = 0
 
 button.onclick = () => {
@@ -94,5 +104,21 @@ button.onclick = () => {
             mainMenu.style.display = ""
             flagMenu = 0
             break
+    }
+}
+
+for (var i = 0; i < buttons.length; i++) {
+    buttons[i].onclick = (e) => {
+        switch (e.currentTarget.textContent) {
+            case "металл":
+                pixel = pixels[0]
+                break
+            case "синий":
+                pixel = pixels[1]
+                break
+            case "зелёный":
+                pixel = pixels[2]
+                break
+        }
     }
 }
